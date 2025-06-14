@@ -1,8 +1,9 @@
+# server/app.py
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from .config import Config
 
+from .config import Config
 from .models import db
 from .controllers.restaurant_controller import restaurant_bp
 from .controllers.pizza_controller import pizza_bp
@@ -23,5 +24,5 @@ def create_app():
 
 app = create_app()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
