@@ -15,22 +15,28 @@ with app.app_context():
     db.drop_all()
     db.create_all()
 
-    # restaurants
-    r1 = Restaurant(name=fake.company(), address=fake.address())
-    r2 = Restaurant(name=fake.company(), address=fake.address())
+    # create 10 restaurants
+    restaurants = []
+    for _ in range(10):
+        r = Restaurant(name=fake.company(), address=fake.address())
+        restaurants.append(r)
 
-    # fake pizzas
-    p1 = Pizza(name=fake.word().capitalize(), ingredients=", ".join([fake.word() for _ in range(3)]))
-    p2 = Pizza(name=fake.word().capitalize(), ingredients=", ".join([fake.word() for _ in range(3)]))
+    # create 10 pizzas
+    pizzas = []
+    for _ in range(10):
+        p = Pizza(name=fake.word().capitalize(), ingredients=", ".join([fake.word() for _ in range(3)]))
+        pizzas.append(p)
 
-    db.session.add_all([r1, r2, p1, p2])
+    db.session.add_all(restaurants + pizzas)
     db.session.commit()
 
-    # restaurant pizza prices
-    rp1 = RestaurantPizza(price=fake.random_int(min=5, max=20), pizza_id=p1.id, restaurant_id=r1.id)
-    rp2 = RestaurantPizza(price=fake.random_int(min=5, max=20), pizza_id=p2.id, restaurant_id=r2.id)
+    # prices
+    restaurant_pizzas = []
+    for i in range(10):
+        rp = RestaurantPizza(price=fake.random_int(min=1, max=30), pizza_id=pizzas[i].id, restaurant_id=restaurants[i].id)
+        restaurant_pizzas.append(rp)
 
-    db.session.add_all([rp1, rp2])
+    db.session.add_all(restaurant_pizzas)
     db.session.commit()
 
     print("Seed complete!")
