@@ -10,7 +10,7 @@ class RestaurantPizza(db.Model):
     pizza_id = db.Column(db.Integer, db.ForeignKey('pizzas.id'), nullable=False)
 
     restaurant = db.relationship('Restaurant', back_populates='restaurant_pizzas')
-    pizza = db.relationship('Pizza', back_populates='restaurant_pizzas')
+    pizza = db.relationship('Pizza', back_populates='restaurant_pizzas',)
 
     def __repr__(self):
         return f"<RestaurantPizza {self.id}: Pizza {self.pizza_id} @ Restaurant {self.restaurant_id} (${self.price})>"
