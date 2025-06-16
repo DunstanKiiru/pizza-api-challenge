@@ -7,13 +7,14 @@ This project is a RESTful API for managing restaurants, pizzas, and their relati
 ## Setup Instructions
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/your-username/your-repo-name.git
    cd your-repo-name
    ```
 
 2. Install dependencies using pipenv:
-   
+
    ```bash
    pipenv install
    pipenv shell
@@ -22,7 +23,7 @@ This project is a RESTful API for managing restaurants, pizzas, and their relati
 3. Set environment variables as needed (e.g., `FLASK_APP=server/app.py`).
 
 4. Run the Flask development server:
-   
+
    ```bash
    flask run
    ```
