@@ -37,19 +37,19 @@ This project is a RESTful API for managing restaurants, pizzas, and their relati
 ## Database Migration & Seeding
 
 - To generate a new migration after model changes:
-  
+
   ```bash
   alembic -c migrations/alembic.ini revision --autogenerate -m "Migration message"
   ```
 
 - To apply migrations to the database:
-  
+
   ```bash
   alembic -c migrations/alembic.ini upgrade head
   ```
 
 - To seed the database with initial data:
-  
+
   ```bash
   python server/seed.py
   ```
