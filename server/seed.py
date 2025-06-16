@@ -10,30 +10,58 @@ from server.models.restaurant_pizza import RestaurantPizza
 
 fake = Faker()
 
+# relevant pizza names and ingredients
+pizza_data = [
+    {"name": "Margherita", "ingredients": "Tomato, Mozzarella, Basil"},
+    {"name": "Pepperoni", "ingredients": "Tomato, Mozzarella, Pepperoni"},
+    {"name": "BBQ Chicken", "ingredients": "BBQ Sauce, Chicken, Red Onion, Cilantro"},
+    {"name": "Hawaiian", "ingredients": "Tomato, Mozzarella, Ham, Pineapple"},
+    {"name": "Veggie", "ingredients": "Tomato, Mozzarella, Bell Peppers, Olives, Onions"},
+    {"name": "Meat Lovers", "ingredients": "Tomato, Mozzarella, Sausage, Bacon, Pepperoni"},
+    {"name": "Four Cheese", "ingredients": "Mozzarella, Parmesan, Gorgonzola, Ricotta"},
+    {"name": "Buffalo Chicken", "ingredients": "Buffalo Sauce, Chicken, Mozzarella, Blue Cheese"},
+    {"name": "Supreme", "ingredients": "Tomato, Mozzarella, Pepperoni, Sausage, Bell Peppers, Onions"},
+    {"name": "Mediterranean", "ingredients": "Tomato, Feta, Olives, Spinach, Red Onion"}
+]
+
+# Predefined relevant restaurant names
+restaurant_names = [
+    "Papa's Pizzeria",
+    "The Pizza Oven",
+    "Slice of Heaven",
+    "The Italian Pie",
+    "Crust & Craft",
+    "Dough Bros",
+    "The Saucy Slice",
+    "Bella's Pizza",
+    "Firebrick Pies",
+    "The Rolling Dough"
+]
+
 with app.app_context():
     print("Dropping existing tables...")
     db.drop_all()
     print("Creating tables...")
     db.create_all()
 
-    #restaurants
+    # Create restaurants
     restaurants = []
-    for _ in range(10):
-        r = Restaurant(name=fake.company(), address=fake.address())
+    for name in restaurant_names:
+        r = Restaurant(name=name, address=fake.address())
         restaurants.append(r)
 
-    # pizzas
+    # Create pizzas
     pizzas = []
-    for _ in range(10):
-        p = Pizza(name=fake.word().capitalize(), ingredients=", ".join([fake.word() for _ in range(3)]))
-        pizzas.append(p)
+    for p in pizza_data:
+        pizza = Pizza(name=p["name"], ingredients=p["ingredients"])
+        pizzas.append(pizza)
 
     db.session.add_all(restaurants + pizzas)
     db.session.commit()
 
-    # restaurant_pizzas with prices
+    # Create restaurant_pizzas with prices 
     restaurant_pizzas = []
-    for i in range(10):
+    for i in range(len(pizzas)):
         rp = RestaurantPizza(
             price=fake.random_int(min=1, max=30),
             pizza_id=pizzas[i].id,
