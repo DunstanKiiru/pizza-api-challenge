@@ -10,7 +10,6 @@ from server.models.restaurant_pizza import RestaurantPizza
 
 fake = Faker()
 
-# relevant pizza names and ingredients
 pizza_data = [
     {"name": "Margherita", "ingredients": "Tomato, Mozzarella, Basil"},
     {"name": "Pepperoni", "ingredients": "Tomato, Mozzarella, Pepperoni"},
@@ -24,7 +23,6 @@ pizza_data = [
     {"name": "Mediterranean", "ingredients": "Tomato, Feta, Olives, Spinach, Red Onion"}
 ]
 
-# Predefined relevant restaurant names
 restaurant_names = [
     "Papa's Pizzeria",
     "The Pizza Oven",
@@ -59,7 +57,7 @@ with app.app_context():
     db.session.add_all(restaurants + pizzas)
     db.session.commit()
 
-    # Create restaurant_pizzas with prices 
+    # Create restaurant_pizzas with prices
     restaurant_pizzas = []
     for i in range(len(pizzas)):
         rp = RestaurantPizza(
